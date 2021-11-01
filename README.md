@@ -1,24 +1,9 @@
-# README
+This is NextFlix, an API for movies.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+How to install:
+- create a database on your machine;
+- run the migrations.
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+### Populating Movies
+- Open your console (rails c)
+- run `load 'lib/populate_movies.rb'`

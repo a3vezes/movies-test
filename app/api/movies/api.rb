@@ -7,7 +7,15 @@ module Movies
     resource :movies do
       desc 'returns all movies'
       get do
-        response = Movie.all
+        movies = Movie.all
+
+        movies.each do |movie|
+          if movie.ratings.count == 0
+            movie.rating = 0
+          else
+            movie.rating = movie.ratings.map(&:grade).sum / movie.ratings.map(&:grade).count
+          end
+        end
       end
 
       desc 'searches a movie using title'
@@ -34,6 +42,11 @@ module Movies
         movie = Movie.find_by_id(params[:id])
 
         if movie
+          if movie.ratings.count == 0
+            movie.rating = 0
+          else
+            movie.rating = movie.ratings.map(&:grade).sum / movie.ratings.map(&:grade).count
+          end
           movie
         else
           error! "not found", :internal_server_error

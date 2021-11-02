@@ -23,7 +23,7 @@ RSpec.describe Movies::API do
 
   describe 'GET /api/v1/movies/:id' do
     it 'returns movie using id' do
-      get "/api/v1/movies/2"
+      get "/api/v1/movies/#{movie2.id}"
       expect(response).to have_http_status(:ok)
       expect(response.body).to include("teste2")
     end
@@ -32,14 +32,14 @@ RSpec.describe Movies::API do
   describe 'POST /api/v1/movies' do
     it 'returns movie using id' do
       post "/api/v1/movies", :params => { :title => "Any Name", release_date: Date.yesterday }
-      expect(response).to have_http_status(:ok)
+      expect(response).to have_http_status(:created)
       expect(Movie.count).to eq(3)
     end
   end
 
   describe 'DELETE /api/v1/movies' do
     it 'remove movie' do
-      delete "/api/v1/movies/2"
+      delete "/api/v1/movies/#{movie2.id}"
       expect(response).to have_http_status(:ok)
       expect(Movie.count).to eq(1)
     end

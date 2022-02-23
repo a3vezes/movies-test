@@ -18,7 +18,8 @@ module Movies
       get '/search' do
         movies = Movie.select_with_rating.title_search(params[:title])
 
-        error! :not_found, 404 if movies.empty?
+        return error! :not_found, 404 if movies.empty?
+        movies
       end
 
       desc 'Show information about a particular movie'

@@ -15,7 +15,7 @@ RSpec.describe Movies::API do
 
   describe 'GET /api/v1/movies/search' do
     it 'returns searched movie' do
-      get "/api/v1/movies/search?title=2"
+      get "/api/v1/movies/search?title=teste2"
       expect(response).to have_http_status(:ok)
       expect(response.body).to include("teste2")
     end

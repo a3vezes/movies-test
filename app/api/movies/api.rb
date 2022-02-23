@@ -16,10 +16,7 @@ module Movies
       end
 
       get '/search' do
-        movie = Movie.select_with_rating.title_search(params[:title])
-
-
-        movie || error!("nothing for this search", :internal_server_error)
+        Movie.select_with_rating.title_search(params[:title])
       end
 
       desc 'Show information about a particular movie'
@@ -28,9 +25,7 @@ module Movies
       end
 
       get '/:id' do
-        movie = Movie.find_by_id(params[:id])
-
-        movie || error!("not found", :internal_server_error)
+        Movie.find_by_id!(params[:id])
       end
 
       desc 'Create a movie.'

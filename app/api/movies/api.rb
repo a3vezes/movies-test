@@ -8,14 +8,6 @@ module Movies
       desc 'returns all movies'
       get do
         movies = Movie.all
-
-        movies.each do |movie|
-          if movie.ratings.count == 0
-            movie.rating = 0
-          else
-            movie.rating = movie.ratings.map(&:grade).sum / movie.ratings.map(&:grade).count
-          end
-        end
       end
 
       desc 'searches a movie using title'
@@ -41,16 +33,7 @@ module Movies
       get '/:id' do
         movie = Movie.find_by_id(params[:id])
 
-        if movie
-          if movie.ratings.count == 0
-            movie.rating = 0
-          else
-            movie.rating = movie.ratings.map(&:grade).sum / movie.ratings.map(&:grade).count
-          end
-          movie
-        else
-          error! "not found", :internal_server_error
-        end
+        movie || error!("not found", :internal_server_error)
       end
 
       desc 'Create a movie.'

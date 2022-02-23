@@ -7,7 +7,7 @@ module Movies
     resource :movies do
       desc 'returns all movies'
       get do
-        Movie.select('movies.*, round(avg(ratings.grade), 2) rating').joins(:ratings).group("id")
+        Movie.select_with_rating
       end
 
       desc 'searches a movie using title'
@@ -16,7 +16,7 @@ module Movies
       end
 
       get '/search' do
-        movie = Movie.select('movies.*, round(avg(ratings.grade), 2) rating').joins(:ratings).group("id").find_by_title(params[:title])
+        movie = Movie.select_with_rating.find_by_title(params[:title])
 
 
         movie || error!("nothing for this search", :internal_server_error)

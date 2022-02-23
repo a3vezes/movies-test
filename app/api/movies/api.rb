@@ -16,7 +16,7 @@ module Movies
       end
 
       get '/search' do
-        movie = Movie.select_with_rating.find_by_title(params[:title])
+        movie = Movie.select_with_rating.title_search(params[:title])
 
 
         movie || error!("nothing for this search", :internal_server_error)

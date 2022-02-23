@@ -23,3 +23,4 @@ Movie.create(
   parental_rating: "N/A",
   plot: "Twelve years after exploring Pandora and joining the Na’vi, Jake Sully has since raised a family with Neytiri and established himself within the clans of the new world. Of course, peace can only last so long. Especially when the military organization from the original film returns to “finish what they started”."
 )
+

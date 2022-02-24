@@ -28,7 +28,7 @@ module Movies
       end
 
       get '/:id' do
-        Movie.find_by_id!(params[:id])
+        Movie.select_with_rating.find_by_id!(params[:id])
       end
 
       desc 'Create a movie.'

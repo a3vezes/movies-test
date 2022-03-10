@@ -8,6 +8,8 @@ module Movies
       desc 'returns all movies'
       get do
         Movie.select_with_rating
+      rescue ActiveRecord::RecordNotFound
+        error! :not_found, 404
       end
 
       desc 'searches a movie using title'
@@ -17,9 +19,10 @@ module Movies
 
       get '/search' do
         movies = Movie.select_with_rating.title_search(params[:title])
-
-        return error! :not_found, 404 if movies.empty?
+        movies.empty? && raise(ActiveRecord::RecordNotFound)
         movies
+      rescue ActiveRecord::RecordNotFound
+        error! :not_found, 404
       end
 
       desc 'Show information about a particular movie'
@@ -29,6 +32,8 @@ module Movies
 
       get '/:id' do
         Movie.select_with_rating.find_by_id!(params[:id])
+      rescue ActiveRecord::RecordNotFound
+        error! :not_found, 404
       end
 
       desc 'Create a movie.'
@@ -58,6 +63,8 @@ module Movies
       end
       delete ':id' do
         Movie.find(params[:id]).destroy
+      rescue ActiveRecord::RecordNotFound
+        error! :not_found, 404
       end
     end
   end

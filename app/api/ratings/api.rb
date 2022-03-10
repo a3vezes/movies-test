@@ -16,6 +16,8 @@ module Ratings
           movie_id: params[:movie_id],
           grade: params[:grade]
         })
+      rescue ActiveRecord::RecordInvalid => e
+        error! e, 422
       end
     end
   end
